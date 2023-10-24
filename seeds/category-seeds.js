@@ -1,3 +1,4 @@
+// Purpose: To seed the category table with data
 const { Category } = require('../models');
 
 const categoryData = [

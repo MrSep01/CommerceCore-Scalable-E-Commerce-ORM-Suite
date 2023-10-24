@@ -1,3 +1,4 @@
+// Purpose: to seed the product table in the ecommerce_db database with data
 const { Product } = require('../models');
 
 const productData = [

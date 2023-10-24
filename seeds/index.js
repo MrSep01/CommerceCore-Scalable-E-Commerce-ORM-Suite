@@ -1,3 +1,4 @@
+// Purpose: to seed the database with data
 const seedCategories = require('./category-seeds');
 const seedProducts = require('./product-seeds');
 const seedTags = require('./tag-seeds');

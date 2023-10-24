@@ -1,3 +1,4 @@
+// Purpose: to seed the database with tag data
 const { Tag } = require('../models');
 
 const tagData = [
