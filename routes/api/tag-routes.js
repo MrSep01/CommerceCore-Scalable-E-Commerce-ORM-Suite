@@ -7,9 +7,9 @@ router.get('/', async (req, res) => {
     const tags = await Tag.findAll({
       include: [{ model: Product, through: ProductTag }],
     });
-    res.status(200).json(tags);
+    res.status(200).json({ message: 'Successfully retrieved all tags', data: tags });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while fetching tags', error: err });
   }
 });
 
@@ -21,13 +21,13 @@ router.get('/:id', async (req, res) => {
     });
 
     if (!tag) {
-      res.status(404).json({ message: 'No tag found with that id' });
+      res.status(404).json({ message: 'No tag found with the specified ID' });
       return;
     }
 
-    res.status(200).json(tag);
+    res.status(200).json({ message: 'Successfully retrieved tag', data: tag });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while fetching the tag', error: err });
   }
 });
 
@@ -35,9 +35,9 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const tag = await Tag.create(req.body);
-    res.status(200).json(tag);
+    res.status(201).json({ message: 'Tag successfully created', data: tag });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json({ message: 'An error occurred while creating the tag', error: err });
   }
 });
 
@@ -51,13 +51,13 @@ router.put('/:id', async (req, res) => {
     });
 
     if (!tag[0]) {
-      res.status(404).json({ message: 'No tag found with that id' });
+      res.status(404).json({ message: 'No tag found with the specified ID' });
       return;
     }
 
     res.status(200).json({ message: 'Tag updated successfully' });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json({ message: 'An error occurred while updating the tag', error: err });
   }
 });
 
@@ -71,13 +71,13 @@ router.delete('/:id', async (req, res) => {
     });
 
     if (!tag) {
-      res.status(404).json({ message: 'No tag found with that id' });
+      res.status(404).json({ message: 'No tag found with the specified ID' });
       return;
     }
 
-    res.status(200).json(tag);
+    res.status(200).json({ message: 'Tag deleted successfully' });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while deleting the tag', error: err });
   }
 });
 

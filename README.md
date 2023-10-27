@@ -59,7 +59,7 @@ Execution of test cases and thorough evaluation for quality control and code rev
 [GitHub Repository Link](https://github.com/MrSep01/CommerceCore-Scalable-E-Commerce-ORM-Suite)
 
 ## Demo Video:
-[Watch the instructions](youtube.com)
+[Watch the Demo](https://www.youtube.com/watch?v=Bz-gSeBIZpU)
 
 ## Conclusion 
 CommerceCore is engineered to offer a secure, scalable, and efficient back-end solution for e-commerce platforms. It employs best practices in both ORM and API development to achieve optimal performance and robust security.

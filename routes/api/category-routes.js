@@ -9,9 +9,9 @@ router.get('/', async (req, res) => {
     const categories = await Category.findAll({
       include: [Product],
     });
-    res.status(200).json(categories);
+    res.status(200).json({ message: 'Successfully retrieved all categories', data: categories });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while fetching categories', error: err });
   }
 });
 
@@ -23,13 +23,13 @@ router.get('/:id', async (req, res) => {
     });
 
     if (!category) {
-      res.status(404).json({ message: 'No category found with that id' });
+      res.status(404).json({ message: 'No category found with the specified ID' });
       return;
     }
 
-    res.status(200).json(category);
+    res.status(200).json({ message: 'Successfully retrieved category', data: category });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while fetching the category', error: err });
   }
 });
 
@@ -37,9 +37,9 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const newCategory = await Category.create(req.body);
-    res.status(201).json(newCategory);
+    res.status(201).json({ message: 'Category successfully created', data: newCategory });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while creating the category', error: err });
   }
 });
 
@@ -53,19 +53,27 @@ router.put('/:id', async (req, res) => {
     });
 
     if (!updatedCategory) {
-      res.status(404).json({ message: 'No category found with that id' });
+      res.status(404).json({ message: 'No category found with the specified ID' });
       return;
     }
 
-    res.status(200).json(updatedCategory);
+    res.status(200).json({ message: 'Category updated successfully', data: updatedCategory });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while updating the category', error: err });
   }
 });
 
 // Delete a category by its `id` value
 router.delete('/:id', async (req, res) => {
   try {
+    // Delete associated products first
+    await Product.destroy({
+      where: {
+        category_id: req.params.id,
+      },
+    });
+
+    // Now delete the category
     const deletedCategory = await Category.destroy({
       where: {
         id: req.params.id,
@@ -73,13 +81,13 @@ router.delete('/:id', async (req, res) => {
     });
 
     if (!deletedCategory) {
-      res.status(404).json({ message: 'No category found with that id' });
+      res.status(404).json({ message: 'No category found with the specified ID' });
       return;
     }
 
-    res.status(200).json(deletedCategory);
+    res.status(200).json({ message: 'Category and associated products deleted successfully' });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: 'An error occurred while deleting the category', error: err });
   }
 });
 
